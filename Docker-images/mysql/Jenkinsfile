@@ -1,0 +1,30 @@
+pipeline {
+    agent chethan
+
+}
+environment {
+        DOCKER_IMAGE = 'chethankumar6/expense-mysql'
+        DOCKER_TAG = 'v1'
+}
+stages {
+    stage ('Checkout') {
+        steps {
+            checkout scm
+        }
+
+    }
+    stage ('Build Docker image') {
+         steps {
+            sh """
+                docker build -t ${DOCKER_IMAGE}:${DOCKET_TAG}
+                """
+    stage ('Docker push to the Docker hub') {
+        steps {
+            sh """
+                docker push docker push ${DOCKER_IMAGE}:${DOCKET_TAG}
+                """
+        }
+    }
+         }
+    }
+}
